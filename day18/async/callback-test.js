@@ -1,0 +1,31 @@
+const DB = [];
+
+// 회원가입 API 함수
+function register(user) {
+  return saveDB(user, function (user) {
+    return sendEmail(user, function (user) {
+      return getResult(user);
+    });
+  });
+}
+
+function saveDB(user, callback) {
+  DB.push(user);
+  console.log(`save ${user.name} to DB`);
+
+  return callback(user);
+}
+
+function sendEmail(user, callback) {
+  console.log(`email to ${user.email}`);
+
+  return callback(user);
+}
+
+function getResult(user) {
+  return `success register ${user.name}`;
+}
+
+const myUser = { email: "andy@test.com", password: "12345", name: "andy" };
+const result = register(myUser);
+console.log(result);
